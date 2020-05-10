@@ -54,10 +54,12 @@ class Video extends React.Component {
 
   getUserMedia(cb) {
     return new Promise((resolve, reject) => {
-      navigator.getUserMedia = navigator.getUserMedia =
+      navigator.getUserMedia = (
         navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
-        navigator.mozGetUserMedia;
+        navigator.mozGetUserMedia || 
+        navigator.msGetUserMedia
+        );
       const op = {
         video: {
           width: { min: 160, ideal: 640, max: 1280 },
@@ -65,7 +67,8 @@ class Video extends React.Component {
         },
         audio: true
       };
-      navigator.getUserMedia(
+      
+      navigator.mediaDevices.getUserMedia(
         op,
         stream => {
           this.setState({ streamUrl: stream, localStream: stream });
@@ -74,6 +77,7 @@ class Video extends React.Component {
         },
         () => {}
       );
+
     });
   }
 
