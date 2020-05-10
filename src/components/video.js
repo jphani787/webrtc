@@ -68,7 +68,7 @@ class Video extends React.Component {
         audio: true
       };
       
-      navigator.mediaDevices.getUserMedia(
+      navigator.getUserMedia(
         op,
         stream => {
           this.setState({ streamUrl: stream, localStream: stream });
