@@ -1,14 +1,15 @@
 var http = require('http');
 var https = require('https');
 var fs = require('fs');
+var path = require('path');
 
 var express = require('express');
 var app = express();
 var server = http.createServer(app);
 var options = {
-    key: fs.readFileSync('./cert/server.key'),
-    cert: fs.readFileSync('./cert/titdo_com.crt'),
-    ca: fs.readFileSync('./cert/My_CA_Bundle.ca-bundle')
+    key: fs.readFileSync(path.join(__dirname, 'ssl', 'server.key')),
+    cert: fs.readFileSync(path.join(__dirname, 'ssl', 'titdo_com.crt')),
+    ca: fs.readFileSync(path.join(__dirname, 'ssl', 'My_CA_Bundle.ca-bundle'))
 };
 
 var io = require('socket.io').listen(server);
