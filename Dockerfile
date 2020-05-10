@@ -4,5 +4,5 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN yarn cache clean && yarn --update-checksums
 COPY . ./
-EXPOSE 8899
+EXPOSE 80
 CMD ["yarn", "start"]

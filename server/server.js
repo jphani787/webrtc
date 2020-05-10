@@ -1,10 +1,20 @@
 var http = require('http');
+var https = require('https');
+var fs = require('fs');
+
 var express = require('express');
 var app = express();
 var server = http.createServer(app);
+var options = {
+    key: fs.readFileSync('./cert/server.key'),
+    cert: fs.readFileSync('./cert/titdo_com.crt'),
+    ca: fs.readFileSync('./cert/My_CA_Bundle.ca-bundle')
+};
 
 var io = require('socket.io').listen(server);
-server.listen(app.get(3000));
+server.listen(80);
+https.createServer(options, app).listen(443);
+
 io.on('connection', function (socket) {
     socket.on('join', function (data) {
         socket.join(data.roomId);
